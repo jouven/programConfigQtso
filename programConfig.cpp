@@ -267,7 +267,7 @@ void programConfig_c::locateConfigFilePath_f(
 
                 if (not QFile::exists(configjsonAlternativePathStr))
                 {
-                    messagesTmp.append_f(text_c("Config file path {0} doesn't exist ", configjsonAlternativePathStr));
+                    messagesTmp.append_f(text_c("Config file path {0} doesn't exist (1)", configjsonAlternativePathStr));
                     break;
                 }
                 configFilePath_pri = configjsonAlternativePathStr;
@@ -291,7 +291,7 @@ void programConfig_c::locateConfigFilePath_f(
 
             if (not QFile::exists(configjsonAlternativePathStr))
             {
-                messagesTmp.append_f({"Config file path {0} doesn't exist", configjsonAlternativePathStr});
+                messagesTmp.append_f({"Config file path {0} doesn't exist (2)", configjsonAlternativePathStr});
                 break;
             }
             configFilePath_pri = configjsonAlternativePathStr;
@@ -305,7 +305,7 @@ void programConfig_c::locateConfigFilePath_f(
     {
         if (not QFile::exists(fileTypePath_f(fileTypeTmp_constexpr)))
         {
-            messagesTmp.append_f({"Config file path {0} doesn't exist", fileTypePath_f(fileTypeTmp_constexpr)});
+            messagesTmp.append_f({"Config file path {0} doesn't exist (3)", fileTypePath_f(fileTypeTmp_constexpr)});
         }
         else
         {
@@ -472,7 +472,7 @@ void programConfig_c::reloadConfigFile_f(const QString& configFilePath_par_con)
         }
         else
         {
-            messageUser_f({"Config file to reload doesn't exist {0}", fileToReloadTmp}, messageType_ec::error);
+            messageUser_f({"Config file to reload doesn't exist {0} (1)", fileToReloadTmp}, messageType_ec::error);
             break;
         }
 
@@ -482,7 +482,7 @@ void programConfig_c::reloadConfigFile_f(const QString& configFilePath_par_con)
         }
         else
         {
-            messageUser_f({"Config file to reload is not a file {0}", fileToReloadTmp}, messageType_ec::error);
+            messageUser_f({"Config file to reload is not a file {0} (2)", fileToReloadTmp}, messageType_ec::error);
             break;
         }
 

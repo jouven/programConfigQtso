@@ -69,6 +69,7 @@ protected:
     //call this after parse to check the options values
     virtual void derivedCheckCommandLineParser_f(QCommandLineParser& commandLineParser_par) = 0;
     virtual bool translationCreatePlacerholders_f() const = 0;
+    //doesn't mean it's enabled by default
     virtual bool loggingSaveLogFileRequired_f() const = 0;
 
     virtual void derivedStart_f() = 0;
