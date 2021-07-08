@@ -98,7 +98,7 @@ bool programConfig_c::translationConfigLoaded_f() const
             break;
         }
 
-        if (translator_pri->isConfigSet_f())
+        if (not translator_pri->isConfigSet_f())
         {
             break;
         }
@@ -153,14 +153,15 @@ void programConfig_c::tryLoadTranslations_f()
         translator_pri->setAddNotFoundKeys_f(translationCreatePlacerholders_f());
         if (not translator_pri->isConfigSet_f())
         {
-            if (translator_pri->addNotFoundKeys_f() )
+            if (translator_pri->addNotFoundKeys_f())
             {
                 //minimum to make translator_pri->isConfigSet_f() = true and "allow translations"
                 translator_pri->addEmptyLanguageLink_f("hard-coded", "english");
                 translator_pri->setTranslateFromLanguage_f("hard-coded");
                 translator_pri->setTranslateToLanguageChain_f({"english"});
 
-                messageUser_f(R"(Translation/s not loaded, adding "empty", "hard-coded"-"english" translation)", messageType_ec::debug);
+                messageUser_f({R"(Translation/s not loaded, adding "empty", "hard-coded"-"english" translation, translation config set {0})",
+                               QString(translator_pri->isConfigSet_f() ? "true" : "false")}, messageType_ec::debug);
                 //MACRO_ADDMESSAGE((*logDataHub_pri), R"(Translation/s not loaded, adding "empty", "hard-coded"-"english" translation)", messageType_ec::information);
             }
             else
@@ -596,10 +597,16 @@ bool programConfig_c::saveTranslationFile_f()
 {
     bool resultTmp(false);
     //translator_pri->setAddNotFoundKeys_f(translationCreatePlacerholders_f());
+#ifdef DEBUGJOUVEN
+    //qDebug() << "saveTranslationFile_f translationConfigLoaded_f() " << translationConfigLoaded_f() << Qt::endl;
+#endif
     if (translationConfigLoaded_f())
     {
         QString errorTmp;
         resultTmp = translator_pri->writeConfigJSONFile_f(fileTypePath_f(fileTypes_ec::translationConfig), true, std::addressof(errorTmp));
+#ifdef DEBUGJOUVEN
+        //qDebug() << "translator_pri->writeConfigJSONFile_f " << resultTmp << Qt::endl;
+#endif
         if (not errorTmp.isEmpty())
         {
             messageUser_f(errorTmp, messageType_ec::error);

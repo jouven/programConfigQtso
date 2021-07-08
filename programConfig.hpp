@@ -53,6 +53,7 @@ protected:
 
     virtual void derivedReadJSON_f(const QJsonObject &json_par) = 0;
     virtual void derivedWriteJSON_f(QJsonObject &json_par) const = 0;
+    //this can be true even derivedWriteJSONDocumented_f is empty because writeJSONDocumented_f generates some default documentation
     virtual bool requiresJSONDocumented_f() const = 0;
     //if requiresJSONDocumented_f is false this function just needs to be implemented empty
     virtual void derivedWriteJSONDocumented_f(QJsonObject &json_par) const = 0;
@@ -68,8 +69,9 @@ protected:
     virtual void derivedConfigureCommandLineParser_f(QCommandLineParser& commandLineParser_par) const = 0;
     //call this after parse to check the options values
     virtual void derivedCheckCommandLineParser_f(QCommandLineParser& commandLineParser_par) = 0;
+
     virtual bool translationCreatePlacerholders_f() const = 0;
-    //doesn't mean it's enabled by default
+    //IMPORTANT it's not enabled by default
     virtual bool loggingSaveLogFileRequired_f() const = 0;
 
     virtual void derivedStart_f() = 0;
